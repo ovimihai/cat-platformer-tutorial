@@ -2,6 +2,9 @@ namespace SpriteKind {
     export const Coin = SpriteKind.create()
     export const Flower = SpriteKind.create()
 }
+/**
+ * added pause because the cat changed vertical position between animations
+ */
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     sprites.destroy(otherSprite)
@@ -514,3 +517,87 @@ for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
     tiles.placeOnTile(flower, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
+game.onUpdate(function () {
+    cat.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . f . . . 
+        . . . . . . . . . . . . f f f . 
+        . . . . . . . . . . . . f f 5 f 
+        f f f f f f f f f f f f f f f f 
+        . . . f f f f f f f f f f f . . 
+        . . . f f f f f f f f f f . . . 
+        . . . f f f f f f f f f f . . . 
+        . . . f . f . . . . f . f . . . 
+        . . . f . f . . . . f . f . . . 
+        . . . f . f . . . . f . f . . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    if (cat.vy < -10) {
+        cat.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . f . . . . 
+            . . . . . . . . . . . f f f . . 
+            . . . . . . . . . . . f f 5 f . 
+            . . f . . . . . . . f f f f f . 
+            . . f . . . . . . . f f f f . . 
+            . f f . . . . . . f f f . . . . 
+            . f . . . . . . . f f f f f f f 
+            . f . . . . . . f f f f . . . . 
+            . f f . . . . f f f f f f f f . 
+            . . f f f f f f f . . . . . . . 
+            . . . . . . f f f . . . . . . . 
+            . . . . . f f . f . . . . . . . 
+            . . . . . f . . f . . . . . . . 
+            . . . . . f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+    } else if (cat.vy > 10) {
+        cat.setImage(img`
+            . . . . . f . . . . . . . . . . 
+            . . . . f . . . . . . . . . . . 
+            . . . f f . . . . . . . . . . . 
+            . . . f . . . . . . . . . . . . 
+            . . . f . . . . . . . . . . . . 
+            . . . f f . . . . . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . f f f f . . . . . . . . . . 
+            . . f f f f f . . . . . . . . . 
+            . . f f f f f f . . f . . . . . 
+            . . f . f f f f f f f f f . . . 
+            . . f . f f f f f f f f 5 f . . 
+            . . . . f . f f f f f f f f . . 
+            . . . . . . f . f . . . . . . . 
+            . . . . . . f . f . . . . . . . 
+            . . . . . . f . f f . . . . . . 
+            `)
+    } else if (Math.floor(cat.x % 2) == 0) {
+        cat.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . f . . . 
+            . . . . . . . . . . . . f f f . 
+            . . . . . . . . . . . . f f 5 f 
+            f f f f f f f f f f f f f f f f 
+            . . . f f f f f f f f f f f . . 
+            . . . f f f f f f f f f f . . . 
+            . . . f f f f f f f f f f . . . 
+            . . . f f . . . . . . f f . . . 
+            . . . f f . . . . . . f f . . . 
+            . . . f f . . . . . . f f . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+    } else {
+    	
+    }
+    if (cat.vx < -10) {
+        cat.image.flipX()
+    }
+    pause(20)
+})

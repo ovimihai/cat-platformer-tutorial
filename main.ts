@@ -2,16 +2,13 @@ namespace SpriteKind {
     export const Coin = SpriteKind.create()
     export const Flower = SpriteKind.create()
 }
-/**
- * added pause because the cat changed vertical position between animations
- */
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     sprites.destroy(otherSprite)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (cat.vy == 0) {
-        cat.vy = -180
+        cat.vy = -160
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile3`, function (sprite, location) {
@@ -517,25 +514,10 @@ for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
     tiles.placeOnTile(flower, value)
     tiles.setTileAt(value, assets.tile`transparency16`)
 }
+/**
+ * added pause because the cat changed vertical position between animations
+ */
 game.onUpdate(function () {
-    cat.setImage(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . f . . . 
-        . . . . . . . . . . . . f f f . 
-        . . . . . . . . . . . . f f 5 f 
-        f f f f f f f f f f f f f f f f 
-        . . . f f f f f f f f f f f . . 
-        . . . f f f f f f f f f f . . . 
-        . . . f f f f f f f f f f . . . 
-        . . . f . f . . . . f . f . . . 
-        . . . f . f . . . . f . f . . . 
-        . . . f . f . . . . f . f . . . 
-        . . . . . . . . . . . . . . . . 
-        `)
     if (cat.vy < -10) {
         cat.setImage(img`
             . . . . . . . . . . . . . . . . 
@@ -594,10 +576,28 @@ game.onUpdate(function () {
             . . . . . . . . . . . . . . . . 
             `)
     } else {
-    	
+        cat.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . f . . . 
+            . . . . . . . . . . . . f f f . 
+            . . . . . . . . . . . . f f 5 f 
+            f f f f f f f f f f f f f f f f 
+            . . . f f f f f f f f f f f . . 
+            . . . f f f f f f f f f f . . . 
+            . . . f f f f f f f f f f . . . 
+            . . . f . f . . . . f . f . . . 
+            . . . f . f . . . . f . f . . . 
+            . . . f . f . . . . f . f . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
     }
     if (cat.vx < -10) {
         cat.image.flipX()
+        cat.setImage(cat.image)
     }
     pause(20)
 })
